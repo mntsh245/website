@@ -1,115 +1,209 @@
 'use client';
-import React from 'react';
+
+import React, { useRef } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
-// Animation Variant
-const fadeInUp = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } }
-};
+export default function InteractiveHome() {
+  const containerRef = useRef(null);
 
-export default function Home() {
+  // Track scroll progress inside the 400vh tall container
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end']
+  });
+
+  // 1. Plate Rotation & Scale Animations
+  const plateRotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
+  const plateScale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.6, 1, 1, 0.8]);
+
+  // 2. Background Glow Animation
+  const glowOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.3, 1, 0.8, 0.4]);
+
+  // 3. Section Opacities based on Scroll Position
+  const scene1Opacity = useTransform(scrollYProgress, [0, 0.2, 0.25], [1, 1, 0]);
+  const scene2Opacity = useTransform(scrollYProgress, [0.25, 0.35, 0.5, 0.55], [0, 1, 1, 0]);
+  const scene3Opacity = useTransform(scrollYProgress, [0.55, 0.65, 0.8, 0.85], [0, 1, 1, 0]);
+  const scene4Opacity = useTransform(scrollYProgress, [0.85, 0.95, 1], [0, 1, 1]);
+
   return (
-    <div className="bg-white dark:bg-[#121212] text-neutral-900 dark:text-white min-h-screen font-sans transition-colors duration-300">
+    <div className="bg-[#0c0c0c] text-white selection:bg-amber-500 selection:text-black">
       
-      {/* HERO SECTION */}
-      <motion.section 
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeInUp}
-        className="relative min-h-[85vh] flex flex-col md:flex-row items-center justify-between px-8 md:px-20 max-w-7xl mx-auto py-12"
-      >
-        <div className="max-w-xl space-y-6">
-          <h1 className="text-5xl md:text-7xl font-serif font-bold tracking-tight leading-tight">
-            A Premium <br />
-            <span className="text-amber-600 dark:text-amber-500">& Authentic</span> <br />
-            Tunday Kababi
-          </h1>
-          <p className="text-neutral-600 dark:text-gray-400 text-lg">
-            One kitchen, one lane, four generations. Experience the original Galouti Kababs cooked to order on our historic iron tawa since 1905.
-          </p>
-          <div>
-            <Link 
-              href="/menu" 
-              className="px-8 py-4 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-md transition duration-300 inline-block shadow-lg shadow-amber-900/30"
+      {/* SCROLL TRACKER CONTAINER */}
+      <div ref={containerRef} className="relative h-[400vh]">
+        
+        {/* STICKY VIEWPORT */}
+        <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+          
+          {/* BACKGROUND AMBIENT LIGHT */}
+          <motion.div 
+            style={{ opacity: glowOpacity }}
+            className="absolute w-[500px] h-[500px] bg-amber-600/30 rounded-full blur-[140px] pointer-events-none"
+          />
+
+          {/* CENTER FIXED ROTATING PLATE & OVERLAYS */}
+          <motion.div 
+            style={{ rotate: plateRotate, scale: plateScale }}
+            className="relative w-[320px] sm:w-[420px] md:w-[500px] aspect-square z-20 flex items-center justify-center"
+          >
+            {/* 1. Base Plate Image */}
+            <div className="relative w-full h-full drop-shadow-[0_20px_50px_rgba(217,119,6,0.3)]">
+              <Image 
+                src="/plate.png" 
+                alt="Brass Plate" 
+                fill 
+                className="object-contain"
+                priority
+              />
+            </div>
+
+            {/* 2. SCENE 2 FOOD: Kabab & Paratha Overlay */}
+            <motion.div 
+              style={{ opacity: scene2Opacity }}
+              className="absolute inset-0 p-4 drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
             >
-              Book A Table
-            </Link>
-          </div>
-        </div>
+              <Image 
+                src="/kabab-paratha.png" 
+                alt="Galouti Kabab and Mughlai Paratha" 
+                fill 
+                className="object-contain"
+              />
+            </motion.div>
 
-        <motion.div 
-          animate={{ y: [0, -15, 0] }}
-          transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-          className="relative w-full max-w-md h-[350px] mt-10 md:mt-0 rounded-2xl border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 flex items-center justify-center shadow-2xl"
-        >
-          <p className="text-neutral-400 text-sm">Floating Dish PNG Image</p>
-        </motion.div>
-      </motion.section>
+            {/* 3. SCENE 3 SPICES: Floating Spices Overlay */}
+            <motion.div 
+              style={{ opacity: scene3Opacity }}
+              className="absolute inset-0 scale-110"
+            >
+              <Image 
+                src="/spices-floating.png" 
+                alt="160 Secret Spices" 
+                fill 
+                className="object-contain"
+              />
+            </motion.div>
+          </motion.div>
 
-      {/* OUR STORY SECTION (SCROLL ANIMATION) */}
-      <motion.section 
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={fadeInUp}
-        className="py-20 px-8 md:px-20 max-w-7xl mx-auto border-t border-neutral-200 dark:border-neutral-800"
-      >
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="bg-neutral-100 dark:bg-neutral-900 h-80 rounded-2xl border border-neutral-200 dark:border-neutral-800 flex items-center justify-center">
-             <p className="text-neutral-400 text-sm">Story Image / Kitchen Video</p>
-          </div>
-          <div className="space-y-4">
-            <span className="text-amber-600 dark:text-amber-500 font-serif italic text-xl">Discover</span>
-            <h2 className="text-4xl font-serif font-bold">Our Story</h2>
-            <p className="text-neutral-600 dark:text-gray-400 leading-relaxed">
-              Get the best authentic Awadhi experience at Tunday Kababi. Whether you are joining us for a family dinner or quick bites in Aminabad, our chefs treat each recipe with four generations of legacy.
+          {/* OVERLAY TEXT SCENES */}
+
+          {/* SCENE 1 TEXT */}
+          <motion.div 
+            style={{ opacity: scene1Opacity }}
+            className="absolute z-30 text-center max-w-xl px-6 pointer-events-none"
+          >
+            <span className="text-amber-500 font-serif italic text-lg sm:text-xl">Welcome to</span>
+            <h1 className="text-5xl sm:text-7xl font-serif font-bold mt-2 tracking-wide">
+              Tunday Kababi
+            </h1>
+            <p className="text-gray-400 mt-4 text-sm sm:text-base">
+              Scroll down to begin the culinary journey of Aminabad since 1905
             </p>
-          </div>
-        </div>
-      </motion.section>
+          </motion.div>
 
-      {/* DISCOVER OUR MENU SECTION */}
-      <motion.section 
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={fadeInUp}
-        className="py-20 px-8 md:px-20 max-w-7xl mx-auto border-t border-neutral-200 dark:border-neutral-800"
-      >
-        <div className="text-center mb-16">
-          <span className="text-amber-600 dark:text-amber-500 font-serif italic text-xl">Discover</span>
-          <h2 className="text-4xl font-serif font-bold mt-1">Our Menu</h2>
-        </div>
+          {/* SCENE 2 TEXT (Kabab Reveal) */}
+          <motion.div 
+            style={{ opacity: scene2Opacity }}
+            className="absolute z-30 left-8 sm:left-16 md:left-24 max-w-md pointer-events-none"
+          >
+            <span className="text-amber-500 font-serif italic text-lg">Melt In Mouth</span>
+            <h2 className="text-4xl sm:text-5xl font-serif font-bold mt-1 text-white">
+              The Famous Galouti
+            </h2>
+            <p className="text-neutral-300 mt-3 text-sm sm:text-base leading-relaxed">
+              Crafted originally for the Nawab of Awadh. Prepared on the iconic iron tawa with hand-pounded meat.
+            </p>
+          </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          <div className="flex gap-6 items-center bg-neutral-50 dark:bg-neutral-900/50 p-6 rounded-xl border border-neutral-200 dark:border-neutral-800">
-            <div className="w-28 h-28 shrink-0 bg-neutral-200 dark:bg-neutral-800 rounded-full flex items-center justify-center border border-amber-500/20">
-              <span className="text-xs text-neutral-500">Dish Pic</span>
+          {/* SCENE 3 TEXT (Secret Recipe) */}
+          <motion.div 
+            style={{ opacity: scene3Opacity }}
+            className="absolute z-30 right-8 sm:right-16 md:right-24 max-w-md text-right pointer-events-none"
+          >
+            <span className="text-amber-500 font-serif italic text-lg">Four Generations</span>
+            <h2 className="text-4xl sm:text-5xl font-serif font-bold mt-1 text-white">
+              160 Secret Spices
+            </h2>
+            <p className="text-neutral-300 mt-3 text-sm sm:text-base leading-relaxed">
+              A closely guarded family recipe passed down through generations, creating an aroma unmatched anywhere in Lucknow.
+            </p>
+          </motion.div>
+
+          <motion.div 
+              style={{ opacity: scene4Opacity }}
+              className="absolute inset-0 p-12 sm:p-16 flex items-center justify-center pointer-events-none"
+            >
+              <div className="relative w-full h-full rounded-full overflow-hidden">
+                <Image 
+                  src="/owner-celebrities.webp" 
+                  alt="Owners and Celebrities" 
+                  fill 
+                  className="object-cover"
+                />
+              </div>
+            </motion.div>
+
+          {/* SCENE 4 TEXT & CELEBRITIES PHOTO */}
+          {/* <motion.div 
+            style={{ opacity: scene4Opacity }}
+            className="absolute z-30 text-center max-w-3xl px-6 flex flex-col items-center"
+          >
+            <span className="text-amber-500 font-serif italic text-lg">Wall of Fame</span>
+            <h2 className="text-4xl sm:text-5xl font-serif font-bold mt-1">
+              Loved By Legends
+            </h2>
+            <p className="text-neutral-300 mt-2 text-sm sm:text-base max-w-xl">
+              From royalty and freedom fighters to global stars and food connoisseurs — everyone visits Aminabad for the authentic taste.
+            </p> */}
+
+            {/* CELEBRITY / OWNER IMAGE FRAME */}
+            {/* <div className="relative w-full max-w-md h-48 sm:h-64 mt-6 rounded-2xl overflow-hidden border-2 border-amber-500/40 shadow-2xl">
+              <Image 
+                src="/owner-celebrities.webp" 
+                alt="Owners and Celebrities at Tunday Kababi" 
+                fill 
+                className="object-cover"
+              />
             </div>
-            <div>
-              <h3 className="text-2xl font-serif font-semibold text-amber-600 dark:text-amber-500">Galouti Kabab</h3>
-              <p className="text-neutral-600 dark:text-gray-400 text-sm mt-2">
-                Melt-in-mouth Galouti Kababs served with freshly baked Mughlai Paratha.
+
+            <div className="mt-6">
+              <Link 
+                href="/menu" 
+                className="px-8 py-3.5 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-full shadow-lg transition inline-block"
+              >
+                Explore Full Menu
+              </Link>
+            </div>
+          </motion.div> */}
+          {/* 👇 YEH REPLACE KARO (Purane Scene 4 Text ki jagah) */}
+          <motion.div 
+            style={{ opacity: scene4Opacity }}
+            className="absolute z-30 inset-0 flex flex-col justify-between items-center py-12 px-6 pointer-events-none"
+          >
+            {/* Top Heading */}
+            <div className="text-center max-w-2xl mt-4">
+              <span className="text-amber-500 font-serif italic text-lg">Wall of Fame</span>
+              <h2 className="text-4xl sm:text-6xl font-serif font-bold mt-1">
+                Loved By Legends
+              </h2>
+              <p className="text-neutral-300 mt-2 text-sm sm:text-base hidden sm:block">
+                From royalty and freedom fighters to global stars and food connoisseurs — everyone visits Aminabad for the authentic taste.
               </p>
             </div>
-          </div>
 
-          <div className="flex gap-6 items-center bg-neutral-50 dark:bg-neutral-900/50 p-6 rounded-xl border border-neutral-200 dark:border-neutral-800">
-            <div className="w-28 h-28 shrink-0 bg-neutral-200 dark:bg-neutral-800 rounded-full flex items-center justify-center border border-amber-500/20">
-              <span className="text-xs text-neutral-500">Dish Pic</span>
+            {/* Bottom Button */}
+            <div className="mb-4 pointer-events-auto">
+              <Link 
+                href="/menu" 
+                className="px-8 py-3.5 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-full shadow-2xl transition inline-block"
+              >
+                Explore Full Menu
+              </Link>
             </div>
-            <div>
-              <h3 className="text-2xl font-serif font-semibold text-amber-600 dark:text-amber-500">Mutton Korma</h3>
-              <p className="text-neutral-600 dark:text-gray-400 text-sm mt-2">
-                Juicy, rich Mutton Korma cooked with authentic Lucknowi spices.
-              </p>
-            </div>
-          </div>
+          </motion.div>
+
         </div>
-      </motion.section>
+      </div>
 
     </div>
   );
