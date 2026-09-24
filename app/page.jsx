@@ -42,7 +42,7 @@ export default function InteractiveHome() {
             className="absolute w-[500px] h-[500px] bg-amber-600/30 rounded-full blur-[140px] pointer-events-none"
           />
 
-          {/* CENTER FIXED ROTATING PLATE & OVERLAYS */}
+          {/* CENTER FIXED ROTATING PLATE & OVERLAYS (Scenes 1 to 3) */}
           <motion.div 
             style={{ rotate: plateRotate, scale: plateScale }}
             className="relative w-[320px] sm:w-[420px] md:w-[500px] aspect-square z-20 flex items-center justify-center"
@@ -129,24 +129,10 @@ export default function InteractiveHome() {
             </p>
           </motion.div>
 
-          <motion.div 
-              style={{ opacity: scene4Opacity }}
-              className="absolute inset-0 p-12 sm:p-16 flex items-center justify-center pointer-events-none"
-            >
-              <div className="relative w-full h-full rounded-full overflow-hidden">
-                <Image 
-                  src="/owner-celebrities.webp" 
-                  alt="Owners and Celebrities" 
-                  fill 
-                  className="object-cover"
-                />
-              </div>
-            </motion.div>
-
           {/* SCENE 4 TEXT & CELEBRITIES PHOTO */}
-          {/* <motion.div 
+          <motion.div 
             style={{ opacity: scene4Opacity }}
-            className="absolute z-30 text-center max-w-3xl px-6 flex flex-col items-center"
+            className="absolute z-30 inset-0 flex flex-col items-center justify-center text-center px-6 bg-black/70 backdrop-blur-md"
           >
             <span className="text-amber-500 font-serif italic text-lg">Wall of Fame</span>
             <h2 className="text-4xl sm:text-5xl font-serif font-bold mt-1">
@@ -154,10 +140,10 @@ export default function InteractiveHome() {
             </h2>
             <p className="text-neutral-300 mt-2 text-sm sm:text-base max-w-xl">
               From royalty and freedom fighters to global stars and food connoisseurs — everyone visits Aminabad for the authentic taste.
-            </p> */}
+            </p>
 
             {/* CELEBRITY / OWNER IMAGE FRAME */}
-            {/* <div className="relative w-full max-w-md h-48 sm:h-64 mt-6 rounded-2xl overflow-hidden border-2 border-amber-500/40 shadow-2xl">
+            <div className="relative w-full max-w-lg h-52 sm:h-64 mt-6 rounded-2xl overflow-hidden border-2 border-amber-500/40 shadow-2xl">
               <Image 
                 src="/owner-celebrities.webp" 
                 alt="Owners and Celebrities at Tunday Kababi" 
@@ -169,33 +155,7 @@ export default function InteractiveHome() {
             <div className="mt-6">
               <Link 
                 href="/menu" 
-                className="px-8 py-3.5 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-full shadow-lg transition inline-block"
-              >
-                Explore Full Menu
-              </Link>
-            </div>
-          </motion.div> */}
-          {/* 👇 YEH REPLACE KARO (Purane Scene 4 Text ki jagah) */}
-          <motion.div 
-            style={{ opacity: scene4Opacity }}
-            className="absolute z-30 inset-0 flex flex-col justify-between items-center py-12 px-6 pointer-events-none"
-          >
-            {/* Top Heading */}
-            <div className="text-center max-w-2xl mt-4">
-              <span className="text-amber-500 font-serif italic text-lg">Wall of Fame</span>
-              <h2 className="text-4xl sm:text-6xl font-serif font-bold mt-1">
-                Loved By Legends
-              </h2>
-              <p className="text-neutral-300 mt-2 text-sm sm:text-base hidden sm:block">
-                From royalty and freedom fighters to global stars and food connoisseurs — everyone visits Aminabad for the authentic taste.
-              </p>
-            </div>
-
-            {/* Bottom Button */}
-            <div className="mb-4 pointer-events-auto">
-              <Link 
-                href="/menu" 
-                className="px-8 py-3.5 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-full shadow-2xl transition inline-block"
+                className="px-8 py-3.5 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-full shadow-lg transition inline-block cursor-pointer"
               >
                 Explore Full Menu
               </Link>
