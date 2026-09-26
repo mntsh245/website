@@ -1,6 +1,7 @@
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  /* aapki baki settings */
 };
 
-module.exports = nextConfig;
+export default nextConfig;

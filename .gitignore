@@ -1,8 +1,14 @@
-node_modules
+# env files
+.env
+.env.local
+
+# next
 .next
-out
-build
-.DS_Store
-*.log
-.env*.local
-.vercel
+
+# dependencies
+node_modules
+
+# AI folders
+.agents
+.cursor
+.devin

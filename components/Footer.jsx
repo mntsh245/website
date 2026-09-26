@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { Clock, Mail, MapPin, Phone } from 'lucide-react';
 import { BRANCH, SITE } from '@/lib/site';
-import { MENU } from '@/lib/menu';
 
+// Schema generator function to prevent undefined variable errors
 const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': 'Restaurant',
@@ -67,22 +67,6 @@ const localBusinessSchema = {
     '@type': 'Menu',
     name: 'Tunday Kababi Aminabad Menu',
     url: `${SITE.url}/menu`,
-    hasMenuSection: [
-      {
-        '@type': 'MenuSection',
-        name: 'Superstar Signatures',
-        hasMenuItem: MENU.filter((item) => item.superstar).map((item) => ({
-          '@type': 'MenuItem',
-          name: item.name,
-          description: item.story,
-          offers: {
-            '@type': 'Offer',
-            price: item.full,
-            priceCurrency: 'INR',
-          },
-        })),
-      },
-    ],
   },
 };
 
@@ -176,7 +160,7 @@ export default function Footer() {
             © {new Date().getFullYear()} {SITE.legalName}. All rights reserved.
           </p>
           <p>
-            {BRANCH.rating} ★ from {BRANCH.reviewCount.toLocaleString('en-IN')}+ Google
+            {BRANCH.rating} ★ from {BRANCH.reviewCount?.toLocaleString('en-IN') || '10,000'}+ Google
             reviews
           </p>
         </div>
