@@ -5,13 +5,12 @@
   "type": "module",
   "description": "Official web experience for Tunday Kababi, Nazirabad Market, Aminabad, Lucknow.",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "seed": "node --env-file=.env.local seed.js",
-    "postinstall": "prisma skills sync || exit 0"
-  },
+  "dev": "next dev",
+  "build": "prisma generate && next build",
+  "start": "next start",
+  "lint": "next lint",
+  "postinstall": "prisma generate"
+},
   "dependencies": {
     "dotenv": "^18.0.3",
     "framer-motion": "^13.4.0",
