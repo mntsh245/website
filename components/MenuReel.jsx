@@ -279,7 +279,7 @@ export default function MenuReel({ heading, intro, autoPlay = true }) {
         <div className="reel-card relative mx-auto mt-10 max-w-5xl">
           <div className="reel-paper">
             <p className="reel-engrave text-center font-display text-sm tracking-[0.3em] text-[#8a6a3a]">
-              TUNDAY KABABI
+              Aminabad Dawat
             </p>
             <p className="reel-engrave mt-1 text-center font-script text-2xl text-[#6f5326]">
               Aminabad, since 1905

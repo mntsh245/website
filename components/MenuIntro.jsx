@@ -68,7 +68,7 @@ export default function MenuIntro() {
           </p>
 
           <h1 className="reel-engrave mt-5 font-script text-5xl leading-none text-[#3f2c17] sm:text-6xl">
-            Tunday Kababi
+            Aminabad Dawat
           </h1>
 
           <span className="animate-ruleDraw mx-auto mt-5 block h-px bg-[#b08b3e]" />

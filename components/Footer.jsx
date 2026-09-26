@@ -8,7 +8,7 @@ const localBusinessSchema = {
   '@type': 'Restaurant',
   '@id': `${SITE.url}/#restaurant`,
   name: SITE.name,
-  alternateName: 'Tunday Kababi Aminabad',
+  alternateName: 'Aminabad Dawat Aminabad',
   description:
     'Awadhi kebab house in Nazirabad Market, Aminabad, Lucknow, serving galouti kebab, ulte tawe ka paratha, Mughlai gravies and Lucknowi biryani since 1905.',
   url: SITE.url,
@@ -65,7 +65,7 @@ const localBusinessSchema = {
   acceptsReservations: 'False',
   hasMenu: {
     '@type': 'Menu',
-    name: 'Tunday Kababi Aminabad Menu',
+    name: 'Aminabad Dawat Aminabad Menu',
     url: `${SITE.url}/menu`,
   },
 };
@@ -80,7 +80,7 @@ export default function Footer() {
 
       <div className="shell grid gap-10 py-14 md:grid-cols-4">
         <div className="md:col-span-2">
-          <p className="font-display text-2xl text-fg">Tunday Kababi</p>
+          <p className="font-display text-2xl text-fg">Aminabad Dawat</p>
           <p className="mt-1 text-sm text-accent">{SITE.tagline}</p>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
             One kitchen, one lane, four generations. Everything is cooked to order on the

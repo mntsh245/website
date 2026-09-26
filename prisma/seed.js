@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 const menuItems = [
   // --- KABAB (SPECIALTIES) ---
   {
-    name: "Tunday Galouti Kabab (Mutton)",
+    name: "Aminabad Dawat Galwati Kabab (Mutton)",
     description: "Melt-in-mouth mutton kabab made with 160 secret Awadhi spices cooked on iron tawa.",
     category: "Kababs",
     priceHalf: 120,
@@ -185,7 +185,7 @@ const menuItems = [
 ];
 
 async function main() {
-  console.log('Seeding Tunday Kababi dishes into Neon DB...');
+  console.log('Seeding Aminabad Dawat dishes into Neon DB...');
   
   // Clear existing items
   await prisma.menuItem.deleteMany({});

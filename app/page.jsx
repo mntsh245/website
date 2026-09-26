@@ -94,7 +94,7 @@ export default function InteractiveHome() {
           >
             <span className="text-amber-500 font-serif italic text-lg sm:text-xl">Welcome to</span>
             <h1 className="text-5xl sm:text-7xl font-serif font-bold mt-2 tracking-wide">
-              Tunday Kababi
+              Aminabad Dawat
             </h1>
             <p className="text-gray-400 mt-4 text-sm sm:text-base">
               Scroll down to begin the culinary journey of Aminabad since 1905
@@ -146,7 +146,7 @@ export default function InteractiveHome() {
             <div className="relative w-full max-w-lg h-52 sm:h-64 mt-6 rounded-2xl overflow-hidden border-2 border-amber-500/40 shadow-2xl">
               <Image 
                 src="/owner-celebrities.webp" 
-                alt="Owners and Celebrities at Tunday Kababi" 
+                alt="Owners and Celebrities at Aminabad Dawat" 
                 fill 
                 className="object-cover"
               />

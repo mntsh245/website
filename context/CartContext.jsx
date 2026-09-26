@@ -11,7 +11,7 @@ export function CartProvider({ children }) {
   // Load cart from localStorage on initial render
   useEffect(() => {
     try {
-      const savedCart = localStorage.getItem('tunday_cart');
+      const savedCart = localStorage.getItem('Aminabad Dawat_cart');
       if (savedCart) {
         setCartItems(JSON.parse(savedCart));
       }
@@ -25,7 +25,7 @@ export function CartProvider({ children }) {
   // Sync cart to localStorage whenever cartItems state changes
   useEffect(() => {
     if (isLoaded) {
-      localStorage.setItem('tunday_cart', JSON.stringify(cartItems));
+      localStorage.setItem('Aminabad Dawat_cart', JSON.stringify(cartItems));
     }
   }, [cartItems, isLoaded]);
 

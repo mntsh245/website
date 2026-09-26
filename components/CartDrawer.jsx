@@ -31,7 +31,7 @@ export default function CartDrawer({ isOpen, onClose }) {
     }
 
     // Build Formatted Order Message
-    let message = `*NEW ORDER - TUNDAY KABABI (AMINABAD)*\n`;
+    let message = `*NEW ORDER - Aminabad Dawat (AMINABAD)*\n`;
     message += `------------------------------------\n`;
     message += `*Customer:* ${customerName}\n`;
     message += `*Address:* ${address}\n\n`;

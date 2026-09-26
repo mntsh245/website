@@ -59,7 +59,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-baseline gap-2.5">
           <span className="font-display text-xl tracking-tight text-fg sm:text-2xl">
-            Tunday Kababi
+            Aminabad Dawat
           </span>
 
           <span className="hidden text-[11px] font-medium text-accent sm:inline">
