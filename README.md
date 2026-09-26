@@ -1,51 +1,380 @@
 # Tunday Kababi — Aminabad, Lucknow
 
-Next.js 14 (App Router, JavaScript) site for the Nazirabad Market flagship. Dark/light theming with `next-themes`, an interactive menu with half/full portions, a slide-over cart with GST and packaging, and a validated catering enquiry form.
+A modern restaurant website inspired by the iconic Tunday Kababi, built with Next.js 14, Prisma, Neon PostgreSQL, Tailwind CSS, and next-themes.
 
-## Run it
+Features include:
+
+- Dynamic menu powered by Neon PostgreSQL
+- Prisma ORM integration
+- Dark and light themes
+- Interactive cart with GST and packaging charges
+- WhatsApp order flow
+- Category filters and menu search
+- Catering enquiry page
+- Responsive design for desktop and mobile
+
+---
+
+## Tech Stack
+
+- Next.js 14 (App Router)
+- React
+- Tailwind CSS
+- Prisma ORM
+- Neon PostgreSQL
+- next-themes
+
+---
+
+## Getting Started
+
+Install dependencies:
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000
-npm run build && npm start
 ```
 
-The first build downloads the Marcellus and Karla webfonts through `next/font/google`, so keep an internet connection for that step.
+Create your environment file:
 
-## Structure
-
+```env
+DATABASE_URL=your_neon_database_url
 ```
+
+Push the database schema:
+
+```bash
+npx prisma db push
+```
+
+Seed the database with sample menu items:
+
+```bash
+node prisma/seed.js
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Open:
+
+```txt
+http://localhost:3000
+```
+
+For production:
+
+```bash
+npm run build
+npm start
+```
+
+---
+
+## Project Structure
+
+```txt
 app/
-  globals.css        theme tokens for both palettes
-  providers.jsx      ThemeProvider + cart context (useCart)
-  layout.jsx         fonts, metadata, navbar, footer, cart drawer
-  page.jsx           hero, heritage, house specialities, reviews, location
-  menu/page.jsx      search, category tabs, dietary filters
-  catering/page.jsx  packages, validated enquiry form, live estimate
-  outlets/page.jsx   sketch map, hours, parking, routes
+│
+├── api/
+│   └── menu/
+│       └── route.js
+│
+├── menu/
+│   └── page.jsx
+│
+├── catering/
+│   └── page.jsx
+│
+├── outlets/
+│   └── page.jsx
+│
+├── layout.js
+├── page.jsx
+├── providers.jsx
+└── globals.css
+
 components/
-  Navbar.jsx  Footer.jsx  CartDrawer.jsx  ThemeToggle.jsx
-  DishCard.jsx  StarRating.jsx
+├── CartDrawer.jsx
+├── DishCard.jsx
+├── Footer.jsx
+├── Navbar.jsx
+├── StarRating.jsx
+└── ThemeToggle.jsx
+
+context/
+└── CartContext.jsx
+
 lib/
-  site.js    branch details, WhatsApp number, tax and packaging rates
-  menu.js    dishes, catering packages, reviews
+├── menu.js
+└── site.js
+
+prisma/
+├── schema.prisma
+└── seed.js
 ```
 
-## Things you will want to change
+---
 
-Everything business-specific lives in `lib/site.js`:
+## Database
 
-- `BRANCH.whatsapp` — the number orders are sent to (country code, no `+`)
-- `BRANCH.phoneDial` / `phoneDisplay` / `email`
-- `BRANCH.latitude` / `longitude` and `mapsUrl`
-- `TAX_RATE` (currently 5%) and `PACKAGING_PER_ITEM` (₹15 per distinct item)
+The application uses Neon PostgreSQL with Prisma ORM.
 
-Menu items, prices, ratings and catering packages live in `lib/menu.js`.
+Schema file:
 
-## Theming
+```txt
+prisma/schema.prisma
+```
 
-Both palettes are CSS variables in `app/globals.css`, exposed to Tailwind as semantic colours (`bg`, `card`, `raised`, `fg`, `muted`, `line`, `accent`, `royal`). Dark is Royal Awadhi (charcoal `#120e0c`, gold `#d4af37`, emerald `#064e3b`); light is Royal Cream (ivory `#fdfbf7`, white cards, amber `#b45309`, crimson `#881337`). Switching themes only swaps the variables, so no component carries `dark:` overrides.
+Generate Prisma client:
 
-## Ordering flow
+```bash
+npx prisma generate
+```
 
-The cart lives in React state and posts nothing to a server. "Place order on WhatsApp" builds a formatted `wa.me` message with every line, the subtotal, packaging, 5% GST and the total. Swap `buildWhatsAppLink` in `components/CartDrawer.jsx` for an API route when you add a payment gateway.
+Apply schema changes:
+
+```bash
+npx prisma db push
+```
+
+Open Prisma Studio:
+
+```bash
+npx prisma studio
+```
+
+---
+
+## Features
+
+### Menu System
+
+- Dynamic menu fetched from the database
+- Veg/Non-Veg segregation
+- Bestseller highlights
+- Half and full portion pricing
+- Category filtering
+- Search functionality
+
+### Cart System
+
+- Add/remove items
+- Quantity management
+- GST calculation
+- Packaging charge calculation
+- WhatsApp order generation
+
+### Catering
+
+- Catering packages
+- Cost estimation
+- Contact and enquiry form
+
+### Theme Support
+
+Dark Mode:
+
+- Royal Awadhi theme
+- Gold accents
+- Charcoal backgrounds
+
+Light Mode:
+
+- Royal Cream theme
+- Warm amber accents
+- Clean restaurant-inspired design
+
+---
+
+## Environment Variables
+
+Create a `.env` file:
+
+```env
+DATABASE_URL=your_neon_database_url
+```
+
+Do not commit:
+
+```txt
+.env
+.env.local
+node_modules
+.next
+```
+
+---
+
+## Deployment
+
+This project can be deployed on:
+
+- Vercel
+- Railway
+- Render
+
+For Vercel:
+
+1. Import the GitHub repository
+2. Add the `DATABASE_URL` environment variable
+3. Deploy
+
+---
+
+## Author
+
+Built as a full-stack restaurant website project using Next.js, Prisma, and Neon PostgreSQL.
+
+
+Tunday Kababi — Aminabad, Lucknow
+A modern restaurant website inspired by the iconic Tunday Kababi, built with Next.js 14, Prisma, Neon PostgreSQL, Tailwind CSS, and next-themes.
+
+Features include:
+
+Dynamic menu powered by Neon PostgreSQL
+Prisma ORM integration
+Dark and light themes
+Interactive cart with GST and packaging charges
+WhatsApp order flow
+Category filters and menu search
+Catering enquiry page
+Responsive design for desktop and mobile
+Tech Stack
+Next.js 14 (App Router)
+React
+Tailwind CSS
+Prisma ORM
+Neon PostgreSQL
+next-themes
+Getting Started
+Install dependencies:
+
+npm install
+Create your environment file:
+
+DATABASE_URL=your_neon_database_url
+Push the database schema:
+
+npx prisma db push
+Seed the database with sample menu items:
+
+node prisma/seed.js
+Start the development server:
+
+npm run dev
+Open:
+
+http://localhost:3000
+For production:
+
+npm run build
+npm start
+Project Structure
+app/
+│
+├── api/
+│   └── menu/
+│       └── route.js
+│
+├── menu/
+│   └── page.jsx
+│
+├── catering/
+│   └── page.jsx
+│
+├── outlets/
+│   └── page.jsx
+│
+├── layout.js
+├── page.jsx
+├── providers.jsx
+└── globals.css
+
+components/
+├── CartDrawer.jsx
+├── DishCard.jsx
+├── Footer.jsx
+├── Navbar.jsx
+├── StarRating.jsx
+└── ThemeToggle.jsx
+
+context/
+└── CartContext.jsx
+
+lib/
+├── menu.js
+└── site.js
+
+prisma/
+├── schema.prisma
+└── seed.js
+Database
+The application uses Neon PostgreSQL with Prisma ORM.
+
+Schema file:
+
+prisma/schema.prisma
+Generate Prisma client:
+
+npx prisma generate
+Apply schema changes:
+
+npx prisma db push
+Open Prisma Studio:
+
+npx prisma studio
+Features
+Menu System
+Dynamic menu fetched from the database
+Veg/Non-Veg segregation
+Bestseller highlights
+Half and full portion pricing
+Category filtering
+Search functionality
+Cart System
+Add/remove items
+Quantity management
+GST calculation
+Packaging charge calculation
+WhatsApp order generation
+Catering
+Catering packages
+Cost estimation
+Contact and enquiry form
+Theme Support
+Dark Mode:
+
+Royal Awadhi theme
+Gold accents
+Charcoal backgrounds
+Light Mode:
+
+Royal Cream theme
+Warm amber accents
+Clean restaurant-inspired design
+Environment Variables
+Create a .env file:
+
+DATABASE_URL=your_neon_database_url
+Do not commit:
+
+.env
+.env.local
+node_modules
+.next
+Deployment
+This project can be deployed on:
+
+Vercel
+Railway
+Render
+For Vercel:
+
+Import the GitHub repository
+Add the DATABASE_URL environment variable
+Deploy
+Author
+Built as a full-stack restaurant website project using Next.js, Prisma, and Neon PostgreSQL.
